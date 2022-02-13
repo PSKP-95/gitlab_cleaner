@@ -1,3 +1,4 @@
+from ast import parse
 import asyncio
 
 import json
@@ -6,12 +7,22 @@ from cleaner.CleanupTask import close_session
 from cleaner.Project import Project
 from cleaner.start import starter
 from datetime import datetime, timedelta
+import argparse
 
 projects: Project = []
+task_file = None
 
 def load_tasks():
-    global projects
-    with open("tasks/prl.json") as f:
+    '''
+    Load user provided task file into Project
+    '''
+    global projects, task_file
+
+    if task_file == None:
+        print("provide task file. Exiting...")
+        exit(1)
+    
+    with open(task_file) as f:
         data = json.load(f)
 
     for t in data:
@@ -27,6 +38,9 @@ def load_tasks():
         projects.append(p)
 
 async def checker():
+    '''
+    Checking if all tasks are done or not
+    '''
     global projects
     while True:
         tasks = len(asyncio.all_tasks())
@@ -37,14 +51,30 @@ async def checker():
     
     for p in projects:
         print(p)
+
     await close_session()
     end =  datetime.now()
 
     print("Time taken: " + str(end - start) )
 
+def parsing():
+    '''
+    Parsing user input task file
+    '''
+    global task_file
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-f", "--file", help = "Provide configuration file", required=True)
+    args = parser.parse_args()
+    task_file = args.file
+
+
 start = datetime.now()
 
+parsing()
+
 load_tasks()
+
 event_loop = asyncio.get_event_loop()
 
 for p in projects:
