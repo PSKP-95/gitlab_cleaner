@@ -2,6 +2,10 @@ from ast import parse
 import asyncio
 
 import json
+from msilib import Table
+
+from rich.console import Console
+from rich.table import Table
 
 from cleaner.CleanupTask import close_session
 from cleaner.Project import Project
@@ -51,7 +55,8 @@ async def checker():
             break
     
     for p in projects:
-        print(p)
+        # print(p)
+        visualize_results(p)
 
     await close_session()
     end =  datetime.now()
@@ -73,6 +78,23 @@ def parsing():
 
     conf["cooldown_seconds"] = int(args.cooldown_seconds)
 
+def visualize_results(project: Project):
+    console = Console()
+    table = Table(show_header=True, header_style="bold magenta")
+
+    table.add_column("Attribute")
+    table.add_column("Value")
+
+    table.add_row("Name", project.name)
+    table.add_row("Id", str(project.id))
+    table.add_row("Pipelines Scanned", str(project.pipelines_scanned))
+    table.add_row("Jobs Scanned", str(project.jobs_scanned))
+    table.add_row("Artifacts cleaned", str(project.artifact_space))
+    table.add_row("Logs cleaned", str(project.logs_space))
+
+    for key, values in project.calls.items():
+        table.add_row("HTTP/" + str(key), str(values))
+    console.print(table)
 start = datetime.now()
 
 parsing()
