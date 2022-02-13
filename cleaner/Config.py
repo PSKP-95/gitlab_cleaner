@@ -11,6 +11,8 @@ conf = {
     "job_url": "{}/{}/pipelines/{}/jobs?include_retried=true&page={}&per_page=50", # GET method
     "artifact_delete_url": "{}/{}/jobs/{}/artifacts", # DELETE method
     "job_erase_url": "{}/{}/jobs/{}/erase",  # POST method
-    "pipeline_delete_url": "{}/{}/pipelines/{}" # DELETE method
+    "pipeline_delete_url": "{}/{}/pipelines/{}", # DELETE method
+
+    "cooldown_seconds": 20
 }
 

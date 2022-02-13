@@ -6,6 +6,7 @@ import json
 from cleaner.CleanupTask import close_session
 from cleaner.Project import Project
 from cleaner.start import starter
+from cleaner.Config import conf
 from datetime import datetime, timedelta
 import argparse
 
@@ -65,9 +66,12 @@ def parsing():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-f", "--file", help = "Provide configuration file", required=True)
+    parser.add_argument("-c", "--cooldown-seconds", help = "each request randomly select 0 to x seconds as cooldown", required=False, default=20)
     args = parser.parse_args()
+
     task_file = args.file
 
+    conf["cooldown_seconds"] = int(args.cooldown_seconds)
 
 start = datetime.now()
 

@@ -2,6 +2,7 @@
 
 import asyncio
 from random import randint
+from cleaner.Config import conf
 
 import aiohttp
 
@@ -30,7 +31,7 @@ async def task(url, headers, method, data, context):
     if session == None:
         init_session()
     
-    await asyncio.sleep(randint(0, 20))
+    await asyncio.sleep(randint(0, conf.get("cooldown_seconds")))
     response = await session.request(method, url, headers = headers, data=data)
     
     context["project"].calls[response.status] = (context.get("project").calls.get(response.status) or 0) + 1
