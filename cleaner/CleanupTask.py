@@ -8,14 +8,23 @@ import aiohttp
 session = None
 
 def init_session():
+    '''
+    initialize session only once per execution
+    '''
     global session
     session = aiohttp.ClientSession()
 
 async def close_session():
+    '''
+    Close session at the end
+    '''
     global session
     await session.close()
 
 async def task(url, headers, method, data, context):
+    '''
+    async task which will load anything using http/https
+    '''
     global calls, http_codes, session
 
     if session == None:
@@ -28,5 +37,8 @@ async def task(url, headers, method, data, context):
     return (response, context)
 
 async def json_task(response: aiohttp.ClientResponse, context):
+    '''
+    convert task response to json
+    '''
     jsonResponse = await response.json()
     return (jsonResponse, context)
