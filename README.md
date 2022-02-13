@@ -1,5 +1,22 @@
 # Gitlab Cleaner
 
+Small utility to clean artifacts, logs & pipelines in gitlab. This is asynchronous program to make it faster.
+
+## How to use?
+
+Just clone repo & create configuration file as below. Set environment variable `private_token` (for accessing gitlab projects). 
+
+```sh
+python main.py --file <conf_file>
+```
+
+## To Do
+
+- [x] Load pipelines & jobs
+- [x] Clean artifacts
+- [] Erase jobs
+- [] Delete pipeline
+
 ## Conf
 
 All numbers are in days. `older_than` means all objects older than x days while `newer_than` means all objects updated after current time minus y days.
