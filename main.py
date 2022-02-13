@@ -1,8 +1,6 @@
-from ast import parse
 import asyncio
 
 import json
-from msilib import Table
 
 from rich.console import Console
 from rich.table import Table
