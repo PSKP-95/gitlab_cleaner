@@ -14,8 +14,8 @@ python main.py --file <conf_file>
 
 - [x] Load pipelines & jobs
 - [x] Clean artifacts
-- [] Erase jobs
-- [] Delete pipeline
+- [ ] Erase jobs
+- [ ] Delete pipeline
 
 ## Conf
 
