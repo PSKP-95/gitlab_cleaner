@@ -1,0 +1,29 @@
+[
+    {
+        "id": 12345,
+        "name": "Project 1",
+        "artifacts": {
+            "older_than": 1,
+            "newer_than": 7
+        },
+        "logs": {
+            "older_than": 300
+        },
+        "pipelines": {
+            "older_than": 1000
+        }
+    },
+    {
+        "id": 987654,
+        "name": "project2",
+        "artifacts": {
+            "older_than": 1
+        },
+        "logs": {
+            "older_than": 300
+        },
+        "pipelines": {
+            "older_than": 1000
+        }
+    }
+]
